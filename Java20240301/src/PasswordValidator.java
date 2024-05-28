@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class PasswordValidator {
     private static final String specialSymbols = "!@#$%^&*()_+[];'\"/\\`,./<>?";
 
