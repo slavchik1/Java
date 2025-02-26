@@ -4,49 +4,39 @@ import java.util.ArrayList;
 public class Library {
     private ArrayList<Book> Books;
     private ArrayList<Reader> Readers;
-    private Reader voidReader = new Reader("", "", "", "", -1);
 
     public Library() {
         Books = new ArrayList<>();
         Readers = new ArrayList<>();
     }
 
-    public void addNewBook(String name, String author, String date, String coverLink, String content, Reader owner) {
-        Book Book = new Book(name, author, date, coverLink, content, owner);
+    public void addNewBook(String name, String author) {
+        Book Book = new Book(name, author);
         Books.add(Book);
         System.out.printf("Book %s by %s has added to the library", name, author);
     }
 
-    public void addNewReader(String name, String sex, String gender, String photoLink, int age) {
-        Reader Reader = new Reader(name, sex, gender, photoLink, age);
-        Books.add(Reader);
-        System.out.printf("%s, %s years old has added to the library", name, age);
+    public void addNewReader(String name) {
+        Reader Reader = new Reader(name);
+        Readers.add(Reader);
+        System.out.printf("%s has benn added to the library", name);
     }
 
     public void booksList() {
-        for (int i = 0; i < Books.size(); i++) {
-            System.out.printf("%s by %s", Books[i].name, Books[i].author);
-        }
-    }
-
-    public int findBook(String name) {
-        for (int i = 0; i < Books.size(); i++) {
-           if (Books[i].name == name) {
-               System.out.printf("Book #%s have found", i);
-               return i;
-           }
+        for (Book book : Books) {
+            System.out.printf("%s by %s\n", Books.name, Books.author);
         }
     }
 
     public void readrsList() {
-        for (int i = 0; i < Readers.size(); i++) {
-            System.out.printf("%s by %s", Readers[i].name, Readers[i].author);
+        for (Reader reade : Readers) {
+            System.out.printf("%s\n", Readers.name);
         }
     }
 
     public void giveBook(String name, Reader owner) {
-        Books[findBook(name)].owner = owner;
-        Books[findBook(name)].status = true;
+        Books[/**/].owner = owner;
+        Books[/**/].status = true;
     }
 
     public void returnBook(String name) {
