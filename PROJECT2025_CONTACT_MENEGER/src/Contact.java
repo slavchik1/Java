@@ -17,4 +17,6 @@ public abstract class Contact {
     public void change_name(String new_name) {
         this.name = new_name;
     }
+
+    abstract String getType();
 }

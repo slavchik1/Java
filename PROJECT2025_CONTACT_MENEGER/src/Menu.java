@@ -1,37 +1,65 @@
-import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
+
 
 public class Menu {
-    ArrayList<Contact> contacts = new ArrayList<>();
-
-    void add_new_contact(String type, String name, int phone_number) {
-        if (type == "Friend") {
-            contacts.add(new Friend(name, phone_number));
-        } else if (type == "Relative") {
-            contacts.add(new Relative(name, phone_number));
-        } else if (type == "Colleague") {
-            contacts.add(new Colleague(name, phone_number));
-        } else {
-            System.out.println("ПОМИЛКА: НЕПРАВАЛЬНИЙ ТИП КОНТАКТУ. КОНТАКТ НЕ ДОДАНО. ЄДИНІ ПРАВИЛЬНІ ТИПУ КОНТАКТУ: Friend, Relative, Colleague.");
-        }
+    public void help() {
+        System.out.println("Вітаємо у менеджері контактів");
+        System.out.println("Доступні команди:");
+        System.out.println();
+        System.out.println("1. h у програмі");
+        System.out.println("2. a - додати новий контакт");
+        System.out.println("3. s - шукати індекс контакту імʼям");
+        System.out.println("4. d - видалити контакт за індексом");
+        System.out.println("5. dn - видалити контакт за імʼям");
+        System.out.println("6. f - відфільтрувати контакти за типом (Friend (друг), Relative (родич), або Colleague (колега))");
+        System.out.println("7. p - висести всі контакти");
+        System.out.println();
     }
 
 
-    int search_by_name(String name) {
-        for (int i = 0; i < contacts.size(); i++) {
-            if (contacts.get(i).name == name) {
-                return i;
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        String currentInput;
+        Manager manager = new Manager();
+
+        help();
+
+        while (true) {
+            currentInput = scanner.nextLine();
+
+            if (Objects.equals(currentInput, "h")) {
+                help();
+            } else if (Objects.equals(currentInput, "a")) {
+                System.out.println("Введіть тип контакта (Friend, Relative, або Colleague):");
+                String type = scanner.nextLine();
+                System.out.println("Введіть імʼя контакта:");
+                String name = scanner.nextLine();
+                System.out.println("Введіть номер телефону контакта:");
+                int phone_number = scanner.nextInt();
+                manager.add_new_contact(type, name, phone_number);
+            } else if (Objects.equals(currentInput, "s")) {
+                System.out.println("Введіть імʼя контакта:");
+                String name = scanner.nextLine();
+                System.out.println(manager.search_by_name(name));
+            } else if (Objects.equals(currentInput, "d")) {
+                System.out.println("Введіть індекс контакта:");
+                int index = scanner.nextInt();
+                manager.delete(index);
+            } else if (Objects.equals(currentInput, "dn")) {
+                System.out.println("Введіть імʼя контакта:");
+                String name = scanner.nextLine();
+                manager.delete(manager.search_by_name(name));
+            } else if (Objects.equals(currentInput, "f")) {
+                System.out.println("Введіть тип контакта (Friend, Relative, або Colleague):");
+                String type = scanner.nextLine();
+                System.out.println(manager.filter(type).toString());
+            } else if (Objects.equals(currentInput, "p")) {
+                manager.print_all_contacts();
+            } else if (Objects.equals(currentInput, "")) {}
+            else {
+                System.out.printf("ПОМИЛКА: КОМАНДА %s ВІДСУТНЯ. ЯКЩО ПОТРІБНА ДОПОМОГА З ПЕРЕЛІКОМ ВСІХ МОЖЛИВИХ КОМАНД, НАПИШІТЬ h.\n", currentInput);
             }
-        }
-        System.out.println("ПОПЕРЕДЖЕННЯ: ІМʼЯ НЕ ЗНАЙДЕНО. ФУНКЦІЯ search_by_name() ПОВЕРНУЛА -1.");
-        return -1;
-    }
-
-
-    void delete(int index) {
-        if (0 >= index || index < contacts.size()) {
-            contacts.remove(index);
-        } else {
-            System.out.printf("ПОМИЛКА: ІНДЕКС ПОЗА ДІАПАЗОНОМ ВІД 0 ДО %s. НІЧОГО НЕ ВИДАЛЕНО.", contacts.size());
         }
     }
 }
