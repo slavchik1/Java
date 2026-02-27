@@ -36,7 +36,7 @@ public class Menu {
                 System.out.println("Введіть імʼя контакта:");
                 String name = scanner.nextLine();
                 System.out.println("Введіть номер телефону контакта:");
-                int phone_number = scanner.nextInt();
+                String phone_number = scanner.nextLine();
                 manager.add_new_contact(type, name, phone_number);
             } else if (Objects.equals(currentInput, "s")) {
                 System.out.println("Введіть імʼя контакта:");
@@ -49,11 +49,17 @@ public class Menu {
             } else if (Objects.equals(currentInput, "dn")) {
                 System.out.println("Введіть імʼя контакта:");
                 String name = scanner.nextLine();
-                manager.delete(manager.search_by_name(name));
+                int ind = manager.search_by_name(name);
+                if (ind == -1) {
+                    System.out.println("ПОМИЛКА: ІМʼЯ НЕ ЗНАЙДЕНО. КОНТАКТ НЕ ВИДАЛЕНО.");
+                } else {
+                    manager.delete(ind);
+                    System.out.println("Контакт успішно видалено");
+                }
             } else if (Objects.equals(currentInput, "f")) {
                 System.out.println("Введіть тип контакта (Friend, Relative, або Colleague):");
                 String type = scanner.nextLine();
-                System.out.println(manager.filter(type).toString());
+                manager.print_contacts_arraylist(manager.filter(type));
             } else if (Objects.equals(currentInput, "p")) {
                 manager.print_all_contacts();
             } else if (Objects.equals(currentInput, "")) {}

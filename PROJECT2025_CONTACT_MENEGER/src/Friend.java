@@ -1,5 +1,5 @@
 public class Friend extends Contact {
-    public Friend(String name, int phone_number) {
+    public Friend(String name, String phone_number) {
         super(name, phone_number);
     }
 

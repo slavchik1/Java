@@ -1,5 +1,5 @@
 public class Colleague extends Contact {
-    public Colleague(String name, int phone_number) {
+    public Colleague(String name, String phone_number) {
         super(name, phone_number);
     }
 

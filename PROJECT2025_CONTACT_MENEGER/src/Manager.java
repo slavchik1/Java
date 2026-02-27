@@ -6,7 +6,7 @@ public class Manager {
     ArrayList<Contact> contacts = new ArrayList<>();
 
 
-    public void add_new_contact(String type, String name, int phone_number) {
+    public void add_new_contact(String type, String name, String phone_number) {
         if (Objects.equals(type, "Friend")) {
             contacts.add(new Friend(name, phone_number));
         } else if (Objects.equals(type, "Relative")) {
@@ -21,7 +21,7 @@ public class Manager {
 
     public int search_by_name(String name) {
         for (int i = 0; i < contacts.size(); i++) {
-            if (contacts.get(i).name == name) {
+            if (Objects.equals(contacts.get(i).name, name)) {
                 return i;
             }
         }
@@ -55,8 +55,15 @@ public class Manager {
     }
 
 
+    public void print_contacts_arraylist(ArrayList<Contact> arrayList) {
+        for (Contact c : arrayList) {
+            c.print_info();
+        }
+    }
+
+
     public void print_all_contacts() {
-        System.out.println("Список всіх контактів:");
-        System.out.println(contacts.toString());
+        System.out.println("Список всіх контактів:\n");
+        print_contacts_arraylist(this.contacts);
     }
 }
